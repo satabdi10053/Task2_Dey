@@ -1,3 +1,5 @@
+Ingestion from Azure sql DB and stored in ADLS Gen2
+
 jdbc_url = "jdbc:sqlserver://nlazu06003.database.windows.net:1433;database=BasicFit" 
 connection_props = {
   "user": "sa", 
@@ -10,6 +12,7 @@ df_visit = spark.read.jdbc(jdbc_url, "dbo.Visit", connection_props)
 bronze_base = "abfss://BF_Bronze@basicfitete.dfs.core.windows.net/" 
 for name, df in [("member", df_member), ("club", df_club), ("visit", df_visit)]:
   (df.withColumn("ingestion_ts", F.current_timestamp()) .write.format("delta") .mode("overwrite") .save(f"{bronze_base}/{name}"))
+
 
 
 %SQL [Register tables in Unity Catalog]
