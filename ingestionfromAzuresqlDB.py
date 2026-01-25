@@ -10,3 +10,9 @@ df_visit = spark.read.jdbc(jdbc_url, "dbo.Visit", connection_props)
 bronze_base = "abfss://BF_Bronze@basicfitete.dfs.core.windows.net/" 
 for name, df in [("member", df_member), ("club", df_club), ("visit", df_visit)]:
   (df.withColumn("ingestion_ts", F.current_timestamp()) .write.format("delta") .mode("overwrite") .save(f"{bronze_base}/{name}"))
+
+
+%SQL [Register tables in Unity Catalog]
+CREATE TABLE Lakeflow_BF.BF_Bronze.Member USING DELTA LOCATION 'abfss://BF_Bronze@basicfitete.dfs.core.windows.net/member';
+CREATE TABLE Lakeflow_BF.BF_Bronze.club USING DELTA LOCATION 'abfss://BF_Bronze@basicfitete.dfs.core.windows.net/club';
+CREATE TABLE Lakeflow_BF.BF_Bronze.visit USING DELTA LOCATION 'abfss://BF_Bronze@basicfitete.dfs.core.windows.net/visit';
