@@ -11,7 +11,7 @@ df_club = spark.read.jdbc(jdbc_url, "dbo.Club", connection_props)
 df_visit = spark.read.jdbc(jdbc_url, "dbo.Visit", connection_props)
 bronze_base = "abfss://BF_Bronze@basicfitete.dfs.core.windows.net/" 
 for name, df in [("member", df_member), ("club", df_club), ("visit", df_visit)]:
-  (df.withColumn("ingestion_ts", F.current_timestamp()) .write.format("delta") .mode("overwrite") .save(f"{bronze_base}/{name}"))
+  (df.withColumn("ingestion_ts", F.current_timestamp()) .write.format("delta") .mode("append") .save(f"{bronze_base}/{name}"))
 
 
 
