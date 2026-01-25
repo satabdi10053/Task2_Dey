@@ -18,7 +18,7 @@ Then go to Data Ingestion ,Create pipeline after choosing SQL Server. Make the i
 
 After running the pipeline all 3 Delta tables have been copied to your BF_Bronze schema. So go to storage account, under the Metastore you can you Deltatable.
 
-Now in Databricks  will go to dev Workspace and open notebook. 
+Now in Databricks  will go to dev Workspace and open notebook for bronze Layer  . After opening the notebook attach with the cluster.
 
 
 
