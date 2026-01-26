@@ -9,6 +9,7 @@ df_bronze = ( spark.readStream .format("cloudFiles")
 df_bronze_stream.writeStream .format("delta") 
 .option("checkpointLocation", f"{bronze_path}/_checkpoint") 
 .outputMode("append") .start(bronze_path/member) 
+.trigger(once=true)
 )
 
 bronze_path = "abfss://BF_Bronze@basicfitete.dfs.core.windows.net" 
@@ -22,6 +23,7 @@ df_bronze = ( spark.readStream .format("cloudFiles")
 df_bronze_stream.writeStream .format("delta") 
 .option("checkpointLocation", f"{bronze_path}/_checkpoint") 
 .outputMode("append") .start(bronze_path/club) 
+.trigger(once=true)
 )
 
 bronze_path = "abfss://BF_Bronze@basicfitete.dfs.core.windows.net" 
@@ -35,5 +37,6 @@ df_bronze = ( spark.readStream .format("cloudFiles")
 df_bronze_stream.writeStream .format("delta") 
 .option("checkpointLocation", f"{bronze_path}/_checkpoint") 
 .outputMode("append") .start(bronze_path/visit) 
+.trigger(once=true)
 )
 
