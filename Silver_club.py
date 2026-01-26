@@ -6,7 +6,7 @@ df_club=df_club.withcolumn("last_modification_date_utc",to_utc_timestamp(col("la
 df_club.write.format("delta").mode("äppend").save("abfss://BF_Silver@basicfitete.dfs.core.windows.net/club")
 
 %SQL
-CREATE TABLE Lakeflow_BF.BF_Bronze.club USING DELTA LOCATION 'abfss://BF_Bronze@basicfitete.dfs.core.windows.net/club';
+CREATE TABLE Lakeflow_BF.BF_Silver.club USING DELTA LOCATION 'abfss://BF_Silver@basicfitete.dfs.core.windows.net/club';
 
 
 
