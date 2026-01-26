@@ -2,3 +2,4 @@ df_club=spark.read.format("delta")\
 .load("abfss://BF_Bronze@basicfitete.dfs.core.windows.net/club")\
 .display(df)  [autoloader automatically creates extra schema that is "rescued_data" or I am saying it as unexpected data]
 df_club.withcolumnRenamed("_rescued_data", "unexpected_Data").display()\ 
+df_club=df_club.withcolumn("last_modification_date"
