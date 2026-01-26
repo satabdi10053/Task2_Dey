@@ -43,3 +43,8 @@ df_bronze_stream.writeStream .format("delta")
 .start(bronze_path/visit)
 )
 
+
+%sql
+CREATE TABLE Lakeflow_BF.BF_Bronze.Member USING DELTA LOCATION 'abfss://BF_Bronze@basicfitete.dfs.core.windows.net/member';
+CREATE TABLE Lakeflow_BF.BF_Bronze.club USING DELTA LOCATION 'abfss://BF_Bronze@basicfitete.dfs.core.windows.net/club';
+CREATE TABLE Lakeflow_BF.BF_Bronze.visit USING DELTA LOCATION 'abfss://BF_Bronze@basicfitete.dfs.core.windows.net/visit';
