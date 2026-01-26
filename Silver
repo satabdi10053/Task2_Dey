@@ -1,1 +1,3 @@
-
+df=spark.read.format("delta")\
+.load("abfss://BF_Bronze@basicfitete.dfs.core.windows.net/club")\
+.display(df)  [autoloader automatically creates extra schema that is "rescued_data"
