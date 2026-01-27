@@ -2,13 +2,13 @@ from pyspark.sql.functions import *
 from pyspark.sql.types import *
 
 df_visit.spark.sql("select * from Lakeflow_BF.BF_Silver.visit")
-
+df=spark.sql("select * from Lakeflow_BF.BF_Silver.member")
+df=spark.sql("select * from Lakeflow_BF.BF_Silver.club")
 df_dim_member=spark.sql("select dim_people_key,people_id as dim_people_id from Lakeflow_BF.BF_gold.dim_Member")
 df_dim_club=spark.sql("select dim_club_key,club_id as dim_club_id from Lakeflow_BF.BF_gold.dim_club"
 
 
-fact_visit = ( df_visit.alias("v") 
-              .join(dim_member.alias("m"), "people_id") 
-              .join(dim_club.alias("c"), "club_id") 
-              .withColumn("visit_date", to_date(col("v.access_visit_datetime "))) 
-              select("v.access_id", "m.dim_member_key", "c.dim_club_key", "v.access_people_id", "v.visit_date", "v.access_status", "v.access_type") )
+df_fact_visit =df.join(df_dim_member,df['people_id']==df_dim_member['dim_people_id'],how=left).join(df_dim_club,df['club_id']==df_dim_club['dim_club_id'],how=left)
+df_fact_visit_new=df_fact_visit.drop('dim_people_id', 'dim_club_id')
+
+dim_club.write.format("delta").mode("append").save("abfss://BF_Gold@basicfitete.dfs.core.windows.net/visit")
