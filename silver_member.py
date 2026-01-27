@@ -9,3 +9,10 @@ df_member=df_member.dropDuplicates(subset['people_id'])
 
 %SQL
 CREATE TABLE Lakeflow_BF.BF_Silver.Member USING DELTA LOCATION 'abfss://BF_Silver@basicfitete.dfs.core.windows.net/member';
+
+SCD:
+MERGE INTO Lakeflow_BF.BF_Silver.Member AS tgt USING Lakeflow_BF.BF_Bronze.Member AS 
+src ON tgt.member_id = src.member_id WHEN MATCHED AND
+src.SYS_CHANGE_OPERATION = 'D' THEN DELETE 
+WHEN MATCHED AND src.SYS_CHANGE_OPERATION <> 'D' THEN UPDATE SET * 
+WHEN NOT MATCHED AND src.SYS_CHANGE_OPERATION <> 'D' THEN INSERT *;
