@@ -24,6 +24,15 @@ Now in Databricks  will go to dev Workspace and open notebook for bronze Layer  
 
 
 
+pipeline Design:
+
+
+
+
+
+
+
+
 
 
 
