@@ -4,6 +4,7 @@ from pyspark.sql.types import *
 df_visit.spark.sql("select * from Lakeflow_BF.BF_Silver.visit")
 
 df_dim_member=spark.sql("select dim_people_key,people_id as dim_people_id from Lakeflow_BF.BF_gold.dim_Member")
+df_dim_club=spark.sql("select dim_club_key,club_id as dim_club_id from Lakeflow_BF.BF_gold.dim_club"
 
 
 fact_visit = ( df_visit.alias("v") 
