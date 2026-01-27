@@ -1,4 +1,6 @@
 from pyspark.sql.functions import *
 from pyspark.sql.types import *
 
-df= spark.sql("select * from Lakeflow_BF.BF_gold.club")
+df_member= spark.sql("select * from Lakeflow_BF.BF_Silver.member")
+
+dim_member = ( df_member .select( F.monotonically_increasing_id().alias("Dim_people_key"), "people_id", "people_age", "people_membership_type", "last_modification_date" ) )
