@@ -9,7 +9,7 @@ df_bronze = ( spark.readStream .format("cloudFiles")
 df_bronze_stream.writeStream .format("delta") 
 .option("checkpointLocation", f"{bronze_path}/_checkpoint") 
 .outputMode("append")
-.trigger(once=true)
+.trigger(once=true)  
 .start(bronze_path/member) 
 )
 
@@ -39,7 +39,7 @@ df_bronze = ( spark.readStream .format("cloudFiles")
 df_bronze_stream.writeStream .format("delta") 
 .option("checkpointLocation", f"{bronze_path}/_checkpoint") 
 .outputMode("append")  
-.trigger(once=true)
+.trigger(once=true) /* you can do streaming as it is increasing a lot*/
 .start(bronze_path/visit)
 )
 
